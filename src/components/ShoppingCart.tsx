@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Offcanvas, Stack } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import CartItem from "./CartItem";
-import { IProduct } from "../interfaces/IProduct";
-import { getProduct } from "../api/product";
 
 interface Props {
   isOpen: boolean;
@@ -11,15 +9,6 @@ interface Props {
 
 const ShoppingCart = ({ isOpen }: Props) => {
   const { closeCart, cartItems } = useShoppingCart();
-
-  const [products, setProducts] = useState<IProduct[]>([]);
-
-  useEffect(() => {
-    getProduct()
-      .then((res: any) => setProducts(res))
-      .catch((err) => console.log(err));
-  });
-
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
       <Offcanvas.Header closeButton>
@@ -28,9 +17,13 @@ const ShoppingCart = ({ isOpen }: Props) => {
       <Offcanvas.Body>
         <Stack gap={3}>
           {cartItems &&
-            cartItems.map((item) => (
-              <CartItem key={item.id} id={item.id} quantity={item.quantity} />
-            ))}
+            cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)}
+          <div className="ms-auto fw-bold fs-5">
+            Total $
+            {cartItems.reduce((total, cartItem) => {
+              return total + cartItem.quantity * (cartItem.product?.price || 0);
+            }, 0)}
+          </div>
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
