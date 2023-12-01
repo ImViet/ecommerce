@@ -1,5 +1,15 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import ShoppingCart from "../components/ShoppingCart";
+import { ICartItem } from "../interfaces/ICart";
+import { IProduct } from "../interfaces/IProduct";
+import { getProduct } from "../api/product";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface ShoppingCartProviderProps {
   children: ReactNode;
@@ -12,13 +22,8 @@ interface ShoppingCartContext {
   removeFromCart: (id: number) => void;
   openCart: () => void;
   closeCart: () => void;
-  cartItems: CartItem[];
+  cartItems: ICartItem[];
   cartQuantity: number;
-}
-
-interface CartItem {
-  id: number;
-  quantity: number;
 }
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -29,7 +34,18 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useLocalStorage<ICartItem[]>("cart", []);
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  //Get list product
+  useEffect(() => {
+    getProduct()
+      .then((res: IProduct[]) => {
+        setProducts(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   //Count quantity items in cart
   const cartQuantity = cartItems.reduce((quantity, item) => {
     return item.quantity + quantity;
@@ -52,7 +68,14 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         ? currentItems.map((item) =>
             item.id === id ? { ...item, quantity: item.quantity + 1 } : item
           )
-        : [...currentItems, { id, quantity: 1 }];
+        : [
+            ...currentItems,
+            {
+              id,
+              quantity: 1,
+              product: products.find((item) => item.id === id),
+            },
+          ];
     });
   }
   //Decrease item in cart

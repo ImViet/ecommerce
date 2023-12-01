@@ -8,7 +8,7 @@ import { IProduct } from "./interfaces/IProduct";
 import "../src/app.css";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import { getProduct } from "./api/product";
-import axios from "axios";
+
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
 
