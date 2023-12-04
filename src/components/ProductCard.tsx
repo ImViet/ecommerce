@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { IProduct } from "../interfaces/IProduct";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { Link } from "react-router-dom";
 
 interface Props {
   product: IProduct;
@@ -18,11 +19,13 @@ const ProductCard = (props: Props) => {
   const quantity = getItemQuantity(product.id);
   return (
     <Card key={product.id}>
-      <Card.Img
-        variant="top"
-        src={product.images ?? "../img/no-image.png"}
-        style={{ objectFit: "cover", height: "250px" }}
-      />
+      <Link to={`/products/${product.id}`}>
+        <Card.Img
+          variant="top"
+          src={product.images ?? "../img/no-image.png"}
+          style={{ objectFit: "cover", height: "250px" }}
+        />
+      </Link>
       <Card.Body>
         <Card.Title title={product.title} className="text-truncate">
           <span>{product.title}</span>

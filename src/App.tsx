@@ -8,6 +8,7 @@ import { IProduct } from "./interfaces/IProduct";
 import "../src/app.css";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import { getProduct } from "./api/product";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -28,9 +29,11 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<Home />}></Route>
           <Route
-            path="/product"
+            path="/products"
             element={<Product products={products} />}
           ></Route>
+          <Route path="/products/:id" element={<ProductDetail />}></Route>
+          <Route path="/products/dt" element={<ProductDetail />}></Route>
         </Routes>
       </Container>
     </ShoppingCartProvider>

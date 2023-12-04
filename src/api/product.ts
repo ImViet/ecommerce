@@ -7,3 +7,7 @@ export const getProduct = (): Promise<IProduct[]> => {
         cancelToken: axios.CancelToken.source().token
     });
 };
+
+export const getProductById = (id: number): Promise<IProduct> => {
+    return axiosClient.get(`products/${id}`);
+}
