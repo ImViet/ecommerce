@@ -22,7 +22,7 @@ const ProductCard = (props: Props) => {
       <Link to={`/products/${product.id}`}>
         <Card.Img
           variant="top"
-          src={product.images ?? "../img/no-image.png"}
+          src={product.images[0] ?? "../img/no-image.png"}
           style={{ objectFit: "cover", height: "250px" }}
         />
       </Link>

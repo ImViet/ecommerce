@@ -15,7 +15,7 @@ const CartItem = ({ cartItem }: Props) => {
   return (
     <Stack direction="horizontal" className="d-flex align-items-center" gap={3}>
       <img
-        src={cartItem.product.images}
+        src={cartItem.product.images[0]}
         alt=""
         style={{ width: "75px", height: "75px", objectFit: "contain" }}
       />

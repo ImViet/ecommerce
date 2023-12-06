@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Product from "./pages/Product";
 import { IProduct } from "./interfaces/IProduct";
-import "../src/app.css";
+import "../src/styles/app.scss";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import { getProduct } from "./api/product";
 import ProductDetail from "./pages/ProductDetail";
