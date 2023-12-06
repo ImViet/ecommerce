@@ -1,0 +1,33 @@
+.product-dt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .product-dt__title{
+        font-size: 1.5rem;
+        color: #000;
+        padding: 3rem 0 1rem 0;
+        font-weight: bold;
+    }
+    .product-dt__price{
+        font-size: 1rem;
+        color: #000;
+        opacity: 0.8;
+    }
+
+    .product-dt__size{
+        span{
+            display: inline-block;
+        }
+
+        input[type="radio"]{
+            appearance: none;
+            width: 0.5rem;
+            height: 0.5rem;
+            border: 2px solid #f46c6c;
+            border-radius: 0.3rem;
+            outline: none;
+            margin-right: 5px;
+        }
+    }
+}

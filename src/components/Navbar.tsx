@@ -17,8 +17,11 @@ const Navbar = () => {
           <Nav.Link to={"/about"} as={NavLink}>
             About
           </Nav.Link>
-          <Nav.Link to={"/product"} as={NavLink}>
+          <Nav.Link to={"/products"} as={NavLink}>
             Product
+          </Nav.Link>
+          <Nav.Link to={"/products/dt"} as={NavLink}>
+            Detail
           </Nav.Link>
         </Nav>
         {cartQuantity > 0 && (
