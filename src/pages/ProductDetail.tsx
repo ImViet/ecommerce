@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { IProduct } from "../interfaces/IProduct";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../api/product";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
 import "../styles/productDetail.scss";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
 
   const [product, setProduct] = useState<IProduct>();
 
+  const { increaseCartQuantity } = useShoppingCart();
   useEffect(() => {
     getProductById(Number(id))
       .then((res) => setProduct(res))
@@ -19,7 +21,7 @@ const ProductDetail = () => {
   return (
     <Container>
       <Row className="mt-5">
-        <Col md={7} sm={12} xs={12}>
+        <Col md={8} sm={12} xs={12}>
           <Carousel interval={null}>
             {product?.images &&
               product.images.map((img) => (
@@ -35,11 +37,15 @@ const ProductDetail = () => {
               ))}
           </Carousel>
         </Col>
-        <Col md={5} sm={12} xs={12}>
+        <Col md={4} sm={12} xs={12}>
           <div className="product-dt">
             <div className="product-dt__title">{product?.title}</div>
             <div className="product-dt__price">{product?.price} vnđ</div>
             <div className="product-dt__size">
+              <span>
+                <input type="radio" id="size-xs" name="size" />
+                <label htmlFor="size-xs">Size XS</label>
+              </span>
               <span>
                 <input type="radio" id="size-s" name="size" />
                 <label htmlFor="size-s">Size S</label>
@@ -56,6 +62,52 @@ const ProductDetail = () => {
                 <input type="radio" id="size-xl" name="size" />
                 <label htmlFor="size-xl">Size XL</label>
               </span>
+            </div>
+            <div className="cart">
+              <Button
+                className="cart-btn__addToCart"
+                onClick={() => product && increaseCartQuantity(product.id)}
+              >
+                Add to cart
+              </Button>
+            </div>
+            <div className="shop-ecommerce">
+              <ul>
+                <span>Buy from ecommerce:</span>
+                <li>
+                  <a href="#">
+                    <img
+                      className="shop-ecommerce__icon"
+                      src="https://bizweb.dktcdn.net/100/369/010/themes/914385/assets/social_lazada_icon.svg?1701749034231"
+                      alt=""
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      className="shop-ecommerce__icon"
+                      src="https://bizweb.dktcdn.net/100/369/010/themes/914385/assets/social_shopee_icon.svg?1701749034231"
+                      alt=""
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      className="shop-ecommerce__icon"
+                      src="https://bizweb.dktcdn.net/100/369/010/themes/914385/assets/social_tiki_icon.svg?1701749034231"
+                      alt=""
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="product-dt__description">
+              <p>
+                <strong>Description:</strong>
+              </p>
+              <p className="detail-description">{product?.description}</p>
             </div>
           </div>
         </Col>

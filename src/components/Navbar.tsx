@@ -20,9 +20,6 @@ const Navbar = () => {
           <Nav.Link to={"/products"} as={NavLink}>
             Product
           </Nav.Link>
-          <Nav.Link to={"/products/dt"} as={NavLink}>
-            Detail
-          </Nav.Link>
         </Nav>
         {cartQuantity > 0 && (
           <Button
