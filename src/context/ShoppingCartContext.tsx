@@ -8,7 +8,7 @@ import {
 import ShoppingCart from "../components/ShoppingCart";
 import { ICartItem } from "../interfaces/ICart";
 import { IProduct } from "../interfaces/IProduct";
-import { getProduct } from "../api/product";
+import { getAllProduct } from "../api/product";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface ShoppingCartProviderProps {
@@ -39,7 +39,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
   //Get list product
   useEffect(() => {
-    getProduct()
+    getAllProduct()
       .then((res: IProduct[]) => {
         setProducts(res);
       })

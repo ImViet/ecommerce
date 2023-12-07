@@ -7,14 +7,14 @@ import Product from "./pages/Product";
 import { IProduct } from "./interfaces/IProduct";
 import "../src/styles/app.scss";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
-import { getProduct } from "./api/product";
+import { getAllProduct } from "./api/product";
 import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    getProduct()
+    getAllProduct()
       .then((res: IProduct[]) => {
         setProducts(res);
       })

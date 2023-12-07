@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { Button, Stack } from "react-bootstrap";
 import { ICartItem } from "../interfaces/ICart";
-import { getProduct } from "../api/product";
-import { IProduct } from "../interfaces/IProduct";
+import { Link } from "react-router-dom";
 interface Props {
   cartItem: ICartItem;
 }
@@ -14,11 +12,13 @@ const CartItem = ({ cartItem }: Props) => {
   if (cartItem.product === undefined) return null;
   return (
     <Stack direction="horizontal" className="d-flex align-items-center" gap={3}>
-      <img
-        src={cartItem.product.images[0]}
-        alt=""
-        style={{ width: "75px", height: "75px", objectFit: "contain" }}
-      />
+      <Link to={`/products/${cartItem.id}`}>
+        <img
+          src={cartItem.product.images[0]}
+          alt=""
+          style={{ width: "75px", height: "75px", objectFit: "contain" }}
+        />
+      </Link>
       <div className="me-auto">
         <div>
           {cartItem.product.title}{" "}

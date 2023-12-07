@@ -2,8 +2,12 @@ import axios from "axios";
 import axiosClient from "./axiosClient";
 import { IProduct } from "../interfaces/IProduct";
 
-export const getProduct = (): Promise<IProduct[]> => {
-    return axiosClient.get(`products`,{
+export const getAllProduct = (): Promise<IProduct[]> => {
+    return axiosClient.get(`products`);
+}
+
+export const getProductPagination = (pageIndex: number): Promise<IProduct[]> => {
+    return axiosClient.get(`products?offset=${pageIndex}&limit=10`,{
         cancelToken: axios.CancelToken.source().token
     });
 };
