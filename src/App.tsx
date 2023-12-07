@@ -33,7 +33,6 @@ function App() {
             element={<Product products={products} />}
           ></Route>
           <Route path="/products/:id" element={<ProductDetail />}></Route>
-          <Route path="/products/dt" element={<ProductDetail />}></Route>
         </Routes>
       </Container>
     </ShoppingCartProvider>
