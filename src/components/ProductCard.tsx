@@ -35,7 +35,7 @@ const ProductCard = (props: Props) => {
           {quantity === 0 ? (
             <Button
               className="w-100"
-              variant="outline-primary"
+              variant="outline-success"
               onClick={() => increaseCartQuantity(product.id)}
             >
               + Add to cart
@@ -43,13 +43,19 @@ const ProductCard = (props: Props) => {
           ) : (
             <div className="d-flex justify-content-center align-items-center flex-column">
               <div className="mb-2">
-                <Button onClick={() => decreaseCartQuantity(product.id)}>
+                <Button
+                  variant="success"
+                  onClick={() => decreaseCartQuantity(product.id)}
+                >
                   -
                 </Button>
                 <span className="mx-1">
                   <strong>{quantity}</strong> in cart
                 </span>
-                <Button onClick={() => increaseCartQuantity(product.id)}>
+                <Button
+                  variant="success"
+                  onClick={() => increaseCartQuantity(product.id)}
+                >
                   +
                 </Button>
               </div>
