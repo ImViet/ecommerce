@@ -7,12 +7,12 @@ interface Props {
 }
 
 const CartItem = ({ cartItem }: Props) => {
-  const { removeFromCart } = useShoppingCart();
+  const { closeCart, removeFromCart } = useShoppingCart();
 
   if (cartItem.product === undefined) return null;
   return (
     <Stack direction="horizontal" className="d-flex align-items-center" gap={3}>
-      <Link to={`/products/${cartItem.id}`}>
+      <Link to={`/products/${cartItem.id}`} onClick={closeCart}>
         <img
           src={cartItem.product.images[0]}
           alt=""

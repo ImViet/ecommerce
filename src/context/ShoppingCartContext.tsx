@@ -8,8 +8,9 @@ import {
 import ShoppingCart from "../components/ShoppingCart";
 import { ICartItem } from "../interfaces/ICart";
 import { IProduct } from "../interfaces/IProduct";
-import { getAllProduct } from "../api/product";
+import { getAllProduct, getProductById } from "../api/product";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { IResponseData } from "../interfaces/IResponseData";
 
 interface ShoppingCartProviderProps {
   children: ReactNode;
@@ -40,12 +41,11 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   //Get list product
   useEffect(() => {
     getAllProduct()
-      .then((res: IProduct[]) => {
-        setProducts(res);
+      .then((res: IResponseData<IProduct[]>) => {
+        setProducts(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
-
   //Count quantity items in cart
   const cartQuantity = cartItems.reduce((quantity, item) => {
     return item.quantity + quantity;
@@ -73,7 +73,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             {
               id,
               quantity: 1,
-              product: products.find((item) => item.id === id),
+              product: products.find((product) => product.id === id),
             },
           ];
     });

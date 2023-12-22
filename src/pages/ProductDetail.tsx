@@ -5,6 +5,7 @@ import { getProductById } from "../api/product";
 import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
 import "../styles/productDetail.scss";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { IResponseData } from "../interfaces/IResponseData";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const ProductDetail = () => {
   const { increaseCartQuantity } = useShoppingCart();
   useEffect(() => {
     getProductById(Number(id))
-      .then((res) => setProduct(res))
+      .then((res: IResponseData<IProduct>) => setProduct(res.data))
       .catch((err) => console.log(err));
   }, [id]);
 

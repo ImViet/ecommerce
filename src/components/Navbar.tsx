@@ -1,12 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { Button, Nav, Navbar as NavbarBs } from "react-bootstrap";
+import { Button, Nav, NavDropdown, Navbar as NavbarBs } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useState } from "react";
+import { ICategory } from "../interfaces/ICategory";
 
-const Navbar = () => {
+interface Props {
+  categories: ICategory[];
+}
+
+const Navbar = (props: Props) => {
+  const { categories } = props;
+
   const { openCart, cartQuantity } = useShoppingCart();
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowDropdown(true);
+  };
+  const handleMouseLeave = () => {
+    setShowDropdown(false);
+  };
   return (
     <NavbarBs sticky="top" expand="lg" className="bg-white shadow-sm mb-3">
       <Container>
@@ -17,9 +34,24 @@ const Navbar = () => {
           <Nav.Link to={"/about"} as={NavLink}>
             About
           </Nav.Link>
-          <Nav.Link to={"/products"} as={NavLink}>
-            Product
-          </Nav.Link>
+          <NavDropdown
+            title="Shop"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            show={showDropdown}
+          >
+            {showDropdown &&
+              categories &&
+              categories.map((cate) => (
+                <NavDropdown.Item
+                  to={`categories/${cate.categoryId}/products`}
+                  as={NavLink}
+                  key={cate.categoryId}
+                >
+                  {cate.categoryName}
+                </NavDropdown.Item>
+              ))}
+          </NavDropdown>
         </Nav>
         {cartQuantity > 0 && (
           <Button

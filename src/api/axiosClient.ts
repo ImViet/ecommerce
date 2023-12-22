@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL : 'https://api.escuelajs.co/api/v1/',
+    baseURL : 'https://localhost:7290/api',
 });
 
 instance.interceptors.request.use((config) => {
