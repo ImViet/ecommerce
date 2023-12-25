@@ -12,19 +12,30 @@ const Product = () => {
 
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [pageIndex, setPageIndex] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
 
   useEffect(() => {
     getProductByCategory(Number(id))
       .then((res: IResponseData<IPaging<IProduct>>) => {
         setProducts(res.data.items);
+        setCurrentPage(res.data.currentPage);
+        setTotalPage(res.data.totalPages);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
-  const loadMore = () => {
+  const loadMore = async () => {
     setLoading(true);
-    setPageIndex(pageIndex + 1);
+    var nextPage = currentPage + 1;
+    var products = await getProductByCategory(Number(id), nextPage);
+    setProducts((currentProduct) => [
+      ...currentProduct,
+      ...products.data.items,
+    ]);
+    setCurrentPage(products.data.currentPage);
+    setTotalPage(products.data.totalPages);
+    setLoading(false);
   };
 
   return (
@@ -37,11 +48,19 @@ const Product = () => {
             </Col>
           ))}
       </Row>
-      <div className="btn-loadmore">
-        <Button variant="outline-primary" onClick={loadMore} disabled={loading}>
-          {loading ? "Loading..." : "Load more"}
-        </Button>
-      </div>
+      {currentPage === totalPage ? (
+        ""
+      ) : (
+        <div className="btn-loadmore">
+          <Button
+            variant="outline-primary"
+            onClick={loadMore}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Load more"}
+          </Button>
+        </div>
+      )}
     </Container>
   );
 };

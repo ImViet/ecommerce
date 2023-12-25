@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { IProduct } from "../interfaces/IProduct";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { Link } from "react-router-dom";
+import formatCurrency from "../utilities/FormatCurrency";
 
 interface Props {
   product: IProduct;
@@ -17,12 +18,18 @@ const ProductCard = (props: Props) => {
   } = useShoppingCart();
   const { product } = props;
   const quantity = getItemQuantity(product.id);
+
+  console.log(product);
   return (
     <Card key={product.id}>
       <Link to={`/products/${product.id}`}>
         <Card.Img
           variant="top"
-          src={product.images[0] ?? "../img/no-image.png"}
+          src={
+            product.images && product.images.length > 0
+              ? product.images[0].imagePath
+              : "/img/no-image.png"
+          }
           style={{ objectFit: "cover", height: "250px" }}
         />
       </Link>
@@ -30,7 +37,7 @@ const ProductCard = (props: Props) => {
         <Card.Title title={product.title} className="text-truncate">
           <span>{product.title}</span>
         </Card.Title>
-        <Card.Text>${product.price}</Card.Text>
+        <Card.Text>{formatCurrency(product.price)}</Card.Text>
         <div className="">
           {quantity === 0 ? (
             <Button

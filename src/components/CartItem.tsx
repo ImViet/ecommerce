@@ -2,6 +2,7 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { Button, Stack } from "react-bootstrap";
 import { ICartItem } from "../interfaces/ICart";
 import { Link } from "react-router-dom";
+import formatCurrency from "../utilities/FormatCurrency";
 interface Props {
   cartItem: ICartItem;
 }
@@ -14,7 +15,7 @@ const CartItem = ({ cartItem }: Props) => {
     <Stack direction="horizontal" className="d-flex align-items-center" gap={3}>
       <Link to={`/products/${cartItem.id}`} onClick={closeCart}>
         <img
-          src={cartItem.product.images[0]}
+          src={cartItem.product.images[0].imagePath}
           alt=""
           style={{ width: "75px", height: "75px", objectFit: "contain" }}
         />
@@ -29,10 +30,12 @@ const CartItem = ({ cartItem }: Props) => {
           )}
         </div>
         <div className="text-muted" style={{ fontSize: "0.90rem" }}>
-          ${cartItem.product.price}
+          {formatCurrency(cartItem.product.price)}
         </div>
       </div>
-      <div className="p-2">${cartItem.product.price * cartItem.quantity}</div>
+      <div className="p-2">
+        {formatCurrency(cartItem.product.price * cartItem.quantity)}
+      </div>
       <Button
         variant="outline-danger"
         size="sm"

@@ -6,8 +6,8 @@ export const getAllProduct = async (): Promise<IResponseData<IProduct[]>> => {
     return await axiosClient.get(`/products`);
 }
 
-export const getProductPagination = (pageIndex: number): Promise<IProduct[]> => {
-    return axiosClient.get(`products?offset=${pageIndex}&limit=10`);
+export const getProductPagination = async (pageIndex: number): Promise<IProduct[]> => {
+    return await axiosClient.get(`/products?pageIndex=${pageIndex}&limit=1`);
 };
 
 export const getProductById = async (id: number): Promise<IResponseData<IProduct>> => {

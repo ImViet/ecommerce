@@ -8,7 +8,7 @@ import {
 import ShoppingCart from "../components/ShoppingCart";
 import { ICartItem } from "../interfaces/ICart";
 import { IProduct } from "../interfaces/IProduct";
-import { getAllProduct, getProductById } from "../api/product";
+import { getAllProduct } from "../api/product";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { IResponseData } from "../interfaces/IResponseData";
 
@@ -43,6 +43,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     getAllProduct()
       .then((res: IResponseData<IProduct[]>) => {
         setProducts(res.data);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);

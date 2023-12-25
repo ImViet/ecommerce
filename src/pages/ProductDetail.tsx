@@ -22,15 +22,19 @@ const ProductDetail = () => {
   return (
     <Container>
       <Row className="mt-5">
-        <Col md={8} sm={12} xs={12}>
-          <Carousel interval={null}>
+        <Col
+          md={8}
+          sm={12}
+          xs={12}
+          className="d-flex justify-content-center align-items-center"
+        >
+          <Carousel interval={null} className="w-75">
             {product?.images &&
               product.images.map((img) => (
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    // src="https://levents.asia/wp-content/uploads/2023/08/z4740519302008_6d6e4b97604723bdad9f2b9819a142e7-1000x1000.jpg"
-                    src={img}
+                    src={img.imagePath}
                     alt=""
                     style={{ maxHeight: "700px", objectFit: "cover" }}
                   />
