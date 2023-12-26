@@ -1,6 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { Button, Nav, NavDropdown, Navbar as NavbarBs } from "react-bootstrap";
+import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  Button,
+  Col,
+  Form,
+  Nav,
+  NavDropdown,
+  Navbar as NavbarBs,
+  Row,
+} from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
@@ -27,63 +35,67 @@ const Navbar = (props: Props) => {
     setShowDropdown(false);
   };
   return (
-    <NavbarBs sticky="top" expand="lg" className="bg-white shadow-sm mb-3">
-      <Container>
-        <NavbarBs.Toggle
-          className="d-inline"
-          aria-controls="sidebar"
-          onClick={openSideBar}
-        />
-        <Nav>
-          <Nav.Link to={"/"} as={NavLink}>
-            Home
-          </Nav.Link>
-          <Nav.Link to={"/about"} as={NavLink}>
-            About
-          </Nav.Link>
-          <NavDropdown
-            title="Shop"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            show={showDropdown}
-          >
-            {showDropdown &&
-              categories &&
-              categories.map((cate) => (
-                <NavDropdown.Item
-                  to={`categories/${cate.categoryId}/products`}
-                  as={NavLink}
-                  key={cate.categoryId}
-                >
-                  {cate.categoryName}
-                </NavDropdown.Item>
-              ))}
-          </NavDropdown>
-        </Nav>
-        {cartQuantity > 0 && (
-          <Button
-            onClick={openCart}
-            variant="outline-success"
-            className="rounded-circle"
-            style={{ width: "3rem", height: "3rem", position: "relative" }}
-          >
-            <FontAwesomeIcon icon={faCartShopping} />
-            <div
-              className="rounded-circle bg-danger d-flex justify-content-center align-item-center"
-              style={{
-                position: "absolute",
-                bottom: "0",
-                right: "0",
-                width: "1.5rem",
-                height: "1.5rem",
-                transform: "translate(25%, 25%)",
-                color: "#fff",
-              }}
-            >
-              {cartQuantity}
-            </div>
-          </Button>
-        )}
+    <NavbarBs sticky="top" expand="lg" className="bg-white shadow-sm mb-3 p-3">
+      <Container className="nav-container">
+        <Row className="nav">
+          <Col className="nav-left">
+            <NavbarBs.Toggle
+              className="d-inline"
+              aria-controls="sidebar"
+              onClick={openSideBar}
+            />
+            <span className="ms-4">CLOTHES STORE</span>
+          </Col>
+          <Col className="nav-center">
+            <Form className="d-flex w-100">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+            </Form>
+          </Col>
+          <Col className="nav-right">
+            {cartQuantity > 0 && (
+              <Button
+                onClick={openCart}
+                // variant="outline-success"
+                className="nav-btn__cart"
+                style={{ width: "3rem", height: "3rem", position: "relative" }}
+              >
+                <FontAwesomeIcon
+                  className="nav-btn__icon"
+                  icon={faBagShopping}
+                />
+                <div className="nav-cart__count">{cartQuantity}</div>
+              </Button>
+            )}
+            <Nav>
+              <NavDropdown
+                title="Shop"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                show={showDropdown}
+              >
+                {showDropdown &&
+                  categories &&
+                  categories.map((cate) => (
+                    <NavDropdown.Item
+                      to={`categories/${cate.categoryId}/products`}
+                      as={NavLink}
+                      key={cate.categoryId}
+                    >
+                      {cate.categoryName}
+                    </NavDropdown.Item>
+                  ))}
+              </NavDropdown>
+              <Nav.Link to={"/about"} as={NavLink}>
+                About
+              </Nav.Link>
+            </Nav>
+          </Col>
+        </Row>
       </Container>
     </NavbarBs>
   );
