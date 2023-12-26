@@ -3,9 +3,10 @@
     bottom: 0;
     background-color: #ccc;
     width: 100%;
-
+    display: flex;
+    justify-content: space-between;
     .cart-total__label{
-
+        padding-right: 10px;
     }
 
     .cart-total__label{

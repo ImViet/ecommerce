@@ -3,7 +3,7 @@ const formatCurrency = (amount: number): string => {
       style: 'decimal',
       currency: 'VND',
     });
-  
+    
     const result = formatter.format(amount);
     return `${result} VND`
   };

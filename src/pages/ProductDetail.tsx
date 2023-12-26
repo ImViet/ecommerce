@@ -6,6 +6,7 @@ import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
 import "../styles/productDetail.scss";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { IResponseData } from "../interfaces/IResponseData";
+import formatCurrency from "../utilities/FormatCurrency";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -45,7 +46,9 @@ const ProductDetail = () => {
         <Col md={4} sm={12} xs={12}>
           <div className="product-dt">
             <div className="product-dt__title">{product?.title}</div>
-            <div className="product-dt__price">{product?.price} vnđ</div>
+            <div className="product-dt__price">
+              {product?.price && formatCurrency(product?.price)}
+            </div>
             <div className="product-dt__size">
               <span>
                 <input type="radio" id="size-xs" name="size" />

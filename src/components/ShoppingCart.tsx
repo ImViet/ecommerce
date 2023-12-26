@@ -26,7 +26,7 @@ const ShoppingCart = ({ isOpen }: Props) => {
                 ))}
             </div>
             <div className="me-auto fw-bold fs-5 cart-total">
-              <span className="cart-total__label p-1">Total</span>
+              <span className="cart-total__label">Total</span>
               <span className="cart-total__money">
                 {formatCurrency(
                   cartItems.reduce((total, cartItem) => {
