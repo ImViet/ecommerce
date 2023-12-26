@@ -23,7 +23,7 @@ const SideBar = ({ isOpen, categories }: Props) => {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Stack gap={3}>
-          <div className="p-1">Shop By Category</div>
+          <div className="p-1 fw-bold">Shop By Category</div>
           <div className="p-1">
             <Menu>
               {categories &&
