@@ -3,10 +3,11 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Button, Nav, NavDropdown, Navbar as NavbarBs } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { useState } from "react";
-import { ICategory } from "../interfaces/ICategory";
-
+import { ICategory } from "../../interfaces/ICategory";
+import "../../styles/navbar.scss";
+import { useAppContext } from "../../context/AppContext";
 interface Props {
   categories: ICategory[];
 }
@@ -15,6 +16,7 @@ const Navbar = (props: Props) => {
   const { categories } = props;
 
   const { openCart, cartQuantity } = useShoppingCart();
+  const { openSideBar } = useAppContext();
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -27,6 +29,11 @@ const Navbar = (props: Props) => {
   return (
     <NavbarBs sticky="top" expand="lg" className="bg-white shadow-sm mb-3">
       <Container>
+        <NavbarBs.Toggle
+          className="d-inline"
+          aria-controls="sidebar"
+          onClick={openSideBar}
+        />
         <Nav>
           <Nav.Link to={"/"} as={NavLink}>
             Home
