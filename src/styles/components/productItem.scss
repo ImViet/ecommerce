@@ -1,0 +1,12 @@
+.product-item{
+    margin: 5px 0;
+    .product-item__image > img{
+        width: 64px;
+        height: 64px;
+    }
+    .product-item__body{
+        .product-item__price{
+            font-size: 14px;
+        }
+    }
+}
