@@ -29,6 +29,7 @@ const SideBar = ({ isOpen, categories }: Props) => {
               {categories &&
                 categories.map((cate) => (
                   <MenuItem
+                    key={cate.categoryId}
                     component={
                       <Link
                         to={`categories/${cate.categoryId}/products`}

@@ -12,7 +12,6 @@ const ProductDetail = () => {
   const { id } = useParams();
 
   const [product, setProduct] = useState<IProduct>();
-
   const { increaseCartQuantity } = useShoppingCart();
   useEffect(() => {
     getProductById(Number(id))
@@ -31,8 +30,8 @@ const ProductDetail = () => {
         >
           <Carousel interval={null} className="w-75">
             {product?.images &&
-              product.images.map((img) => (
-                <Carousel.Item>
+              product.images.map((img, index) => (
+                <Carousel.Item key={index}>
                   <img
                     className="d-block w-100"
                     src={img.imagePath}

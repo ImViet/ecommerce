@@ -16,6 +16,7 @@ import { useState } from "react";
 import { ICategory } from "../../interfaces/ICategory";
 import "../../styles/navbar.scss";
 import { useAppContext } from "../../context/AppContext";
+import { link } from "fs";
 interface Props {
   categories: ICategory[];
 }
@@ -38,9 +39,29 @@ const Navbar = (props: Props) => {
     <NavbarBs sticky="top" expand="lg" className="bg-white shadow-sm mb-3 p-3">
       <Container className="nav-container">
         <Row className="nav">
-          <Col className="nav-left">
+          <Col className="nav-mobile">
             <NavbarBs.Toggle
               className="d-inline"
+              aria-controls="sidebar"
+              onClick={openSideBar}
+            />
+            {cartQuantity > 0 && (
+              <Button
+                onClick={openCart}
+                // variant="outline-success"
+                className="nav-btn__cart"
+              >
+                <FontAwesomeIcon
+                  className="nav-btn__icon"
+                  icon={faBagShopping}
+                />
+                <div className="nav-cart__count">{cartQuantity}</div>
+              </Button>
+            )}
+          </Col>
+          <Col className="nav-left">
+            <NavbarBs.Toggle
+              className="d-inline btn-toggle"
               aria-controls="sidebar"
               onClick={openSideBar}
             />
@@ -50,7 +71,7 @@ const Navbar = (props: Props) => {
             <Form className="d-flex w-100">
               <Form.Control
                 type="search"
-                placeholder="Search"
+                placeholder="Search Products"
                 className="me-2"
                 aria-label="Search"
               />
@@ -62,7 +83,6 @@ const Navbar = (props: Props) => {
                 onClick={openCart}
                 // variant="outline-success"
                 className="nav-btn__cart"
-                style={{ width: "3rem", height: "3rem", position: "relative" }}
               >
                 <FontAwesomeIcon
                   className="nav-btn__icon"
@@ -72,6 +92,9 @@ const Navbar = (props: Props) => {
               </Button>
             )}
             <Nav>
+              <Nav.Link to={`/products`} as={NavLink}>
+                Shop
+              </Nav.Link>
               <NavDropdown
                 title="Shop"
                 onMouseEnter={handleMouseEnter}

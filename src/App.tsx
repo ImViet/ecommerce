@@ -35,6 +35,7 @@ function App() {
               path="/categories/:id/products"
               element={<Product />}
             ></Route>
+            <Route path="/products" element={<Product />}></Route>
             <Route path="/products/:id" element={<ProductDetail />}></Route>
           </Routes>
         </Container>

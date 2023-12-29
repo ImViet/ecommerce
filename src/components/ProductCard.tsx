@@ -19,7 +19,6 @@ const ProductCard = (props: Props) => {
   const { product } = props;
   const quantity = getItemQuantity(product.id);
 
-  console.log(product);
   return (
     <Card key={product.id}>
       <Link to={`/products/${product.id}`}>
