@@ -17,6 +17,8 @@ import { ICategory } from "../../interfaces/ICategory";
 import "../../styles/navbar.scss";
 import { useAppContext } from "../../context/AppContext";
 import { link } from "fs";
+import SearchBox from "../../components/SearchBox";
+import { getSuggestionProduct } from "../../api/product";
 interface Props {
   categories: ICategory[];
 }
@@ -59,7 +61,7 @@ const Navbar = (props: Props) => {
               </Button>
             )}
           </Col>
-          <Col className="nav-left">
+          <Col className="nav-left" lg={3}>
             <NavbarBs.Toggle
               className="d-inline btn-toggle"
               aria-controls="sidebar"
@@ -67,17 +69,18 @@ const Navbar = (props: Props) => {
             />
             <span className="ms-4">CLOTHES STORE</span>
           </Col>
-          <Col className="nav-center">
-            <Form className="d-flex w-100">
+          <Col className="nav-center" lg={6}>
+            {/* <Form className="d-flex w-100">
               <Form.Control
                 type="search"
                 placeholder="Search Products"
                 className="me-2"
                 aria-label="Search"
               />
-            </Form>
+            </Form> */}
+            <SearchBox getSuggestionRequest={getSuggestionProduct} />
           </Col>
-          <Col className="nav-right">
+          <Col className="nav-right" lg={3}>
             {cartQuantity > 0 && (
               <Button
                 onClick={openCart}
