@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+.nav-mobile{
+    display: none;
+}
+
 .nav-left{
     display: flex;
     justify-content: flex-start;
@@ -28,6 +32,9 @@
 .nav-btn__cart{
     background-color: transparent !important;
     border: none !important;
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .nav-btn__icon{
@@ -42,8 +49,8 @@
     align-items: center;
     font-size: 12px;
     position: absolute;
-    top: -5px;
-    right: 5px;
+    top: -8px;
+    right: 0px;
     width: 1.2rem;
     height: 1.2rem;
     transform: translate(25%, 25%);
@@ -62,10 +69,28 @@
         justify-content: center;
         width: 100%;
     }
-    .nav-left,.nav-center,.nav-right{
+    
+    .nav-mobile,.nav-left,.nav-center,.nav-right{
         margin-bottom: 10px;
     }
+    
+    .nav-mobile{
+        display: flex;
+        justify-content: space-between;
+        order: 1;
+    }
+    .nav-left{
+        justify-content: center;
+        order: 0;
+        
+        .btn-toggle{
+            display: none !important;
+        }
+    }
 
+    .nav-center{
+        order: 2;
+    }
     .nav-right{
         // flex-direction: column;
         // justify-content: left;

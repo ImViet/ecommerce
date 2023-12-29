@@ -43,7 +43,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     getAllProduct()
       .then((res: IResponseData<IProduct[]>) => {
         setProducts(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);

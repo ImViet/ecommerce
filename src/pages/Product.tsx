@@ -6,6 +6,7 @@ import { getProductByCategory } from "../api/categories";
 import { useParams } from "react-router-dom";
 import { IResponseData } from "../interfaces/IResponseData";
 import { IPaging } from "../interfaces/IPaging";
+import ProductList from "../containers/Product/ProductList";
 
 const Product = () => {
   const { id } = useParams();
@@ -40,14 +41,7 @@ const Product = () => {
 
   return (
     <Container>
-      <Row md={2} xs={1} lg={4}>
-        {products &&
-          products.map((product) => (
-            <Col className="mb-1" sm="3" key={product.id}>
-              <ProductCard product={product} />
-            </Col>
-          ))}
-      </Row>
+      <ProductList products={products} />
       {currentPage === totalPage ? (
         ""
       ) : (

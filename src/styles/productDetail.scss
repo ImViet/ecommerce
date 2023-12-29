@@ -41,7 +41,7 @@
             width: 0;
         }
         input:checked + label {
-            background: #1abc9c;
+            background: #198754;
             border: 1px #000 solid;
             color: #fff;
         }
@@ -53,6 +53,7 @@
 
         .detail-description{
             font-size: 14px;
+            white-space: pre-wrap;
         }
     }
 }
