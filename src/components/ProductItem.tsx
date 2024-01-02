@@ -3,14 +3,29 @@ import { Stack } from "react-bootstrap";
 import { IProduct } from "../interfaces/IProduct";
 import "../styles/components/productItem.scss";
 import formatCurrency from "../utilities/FormatCurrency";
+import { NavLink } from "react-router-dom";
 interface Props {
   product: IProduct;
+  hideSuggestion?: () => void;
+  setSearchValue?: (value: string) => void;
 }
 
 const ProductItem = (props: Props) => {
-  const { product } = props;
+  const { product, hideSuggestion, setSearchValue } = props;
+
+  const handleClickSuggestion = (productName: string) => {
+    if (hideSuggestion) hideSuggestion();
+    if (setSearchValue) setSearchValue(productName);
+  };
   return (
-    <Stack className="product-item" direction="horizontal" gap={3}>
+    <Stack
+      as={NavLink}
+      to={`/products/${product.id}`}
+      className="product-item"
+      direction="horizontal"
+      gap={3}
+      onClick={() => handleClickSuggestion(product.title)}
+    >
       <div className="product-item__image">
         <img src={product.images[0]?.imagePath} alt="" />
       </div>

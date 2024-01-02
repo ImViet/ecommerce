@@ -42,7 +42,7 @@ const Product = () => {
   return (
     <Container>
       <ProductList products={products} />
-      {currentPage === totalPage ? (
+      {currentPage === totalPage || products.length === 0 ? (
         ""
       ) : (
         <div className="btn-loadmore">

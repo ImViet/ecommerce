@@ -20,6 +20,11 @@
             box-shadow: none;
             transition: .9s;
         }
+        .icon-search{
+            position: absolute;
+            right: 0;
+            transform: translate(-50%, 40%);
+        }
         .suggestion-list{
             background-color: #fff;
             position: absolute;
