@@ -3,8 +3,9 @@ import { Form } from "react-bootstrap";
 import "../styles/components/searchBox.scss";
 import ProductItem from "./ProductItem";
 import useThrottle from "../hooks/useThrottle";
-import { IResponseData } from "../interfaces/IResponseData";
 import { IProduct } from "../interfaces/IProduct";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   getSuggestionRequest: Function;
@@ -25,6 +26,14 @@ const SearchBox = (props: Props) => {
     } else {
       setShow(false);
     }
+  };
+
+  const handleHideSuggestion = () => {
+    setShow(false);
+  };
+
+  const handleSearchValue = (keyword: string) => {
+    setSearch(keyword);
   };
 
   const getSuggestion = useThrottle((keyword: string) => {
@@ -53,14 +62,23 @@ const SearchBox = (props: Props) => {
           placeholder="Search Products"
           aria-label="Search"
           onChange={handleChangeSearch}
+          value={search}
         />
+        <span className="icon-search">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </span>
         {suggestions?.length > 0 ? (
           <div
             className="suggestion-list"
             style={{ visibility: show ? "visible" : "hidden" }}
           >
             {suggestions.map((suggestion, index) => (
-              <ProductItem key={index} product={suggestion} />
+              <ProductItem
+                key={index}
+                product={suggestion}
+                hideSuggestion={handleHideSuggestion}
+                setSearchValue={handleSearchValue}
+              />
             ))}
           </div>
         ) : null}

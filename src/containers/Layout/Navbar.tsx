@@ -61,7 +61,7 @@ const Navbar = (props: Props) => {
               </Button>
             )}
           </Col>
-          <Col className="nav-left" lg={3}>
+          <Col className="nav-left" lg={4} xl={3}>
             <NavbarBs.Toggle
               className="d-inline btn-toggle"
               aria-controls="sidebar"
@@ -69,7 +69,7 @@ const Navbar = (props: Props) => {
             />
             <span className="ms-4">CLOTHES STORE</span>
           </Col>
-          <Col className="nav-center" lg={6}>
+          <Col className="nav-center" lg={4} xl={6}>
             {/* <Form className="d-flex w-100">
               <Form.Control
                 type="search"
@@ -80,7 +80,7 @@ const Navbar = (props: Props) => {
             </Form> */}
             <SearchBox getSuggestionRequest={getSuggestionProduct} />
           </Col>
-          <Col className="nav-right" lg={3}>
+          <Col className="nav-right" lg={4} xl={3}>
             {cartQuantity > 0 && (
               <Button
                 onClick={openCart}

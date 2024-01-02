@@ -4,6 +4,7 @@ import { IProduct } from "../interfaces/IProduct";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { Link } from "react-router-dom";
 import formatCurrency from "../utilities/FormatCurrency";
+import "../styles/components/productCard.scss";
 
 interface Props {
   product: IProduct;
@@ -20,7 +21,7 @@ const ProductCard = (props: Props) => {
   const quantity = getItemQuantity(product.id);
 
   return (
-    <Card key={product.id}>
+    <Card key={product.id} className="product">
       <Link to={`/products/${product.id}`}>
         <Card.Img
           variant="top"
@@ -32,11 +33,16 @@ const ProductCard = (props: Props) => {
           style={{ objectFit: "cover", height: "250px" }}
         />
       </Link>
-      <Card.Body>
-        <Card.Title title={product.title} className="text-truncate">
+      <Card.Body className="product-body">
+        <Card.Title
+          title={product.title}
+          className="product-body__title text-truncate"
+        >
           <span>{product.title}</span>
         </Card.Title>
-        <Card.Text>{formatCurrency(product.price)}</Card.Text>
+        <Card.Text className="product-body__price">
+          {formatCurrency(product.price)}
+        </Card.Text>
         <div className="">
           {quantity === 0 ? (
             <Button

@@ -10,7 +10,7 @@ interface Props {
 const ProductList = (props: Props) => {
   const { products } = props;
   return (
-    <Row md={2} xs={1} lg={4}>
+    <Row md={2} sm={1} lg={3} xl={4}>
       {products &&
         products.map((product) => (
           <Col className="mb-1" sm="3" key={product.id}>

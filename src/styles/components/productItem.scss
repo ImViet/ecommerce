@@ -1,5 +1,8 @@
 .product-item{
     margin: 5px 0;
+    text-decoration: none;
+    color: #000;
+    border-bottom: 1px solid #bdcbd2;
     .product-item__image > img{
         width: 64px;
         height: 64px;
