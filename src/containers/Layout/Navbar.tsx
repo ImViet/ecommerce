@@ -26,7 +26,7 @@ const Navbar = (props: Props) => {
   const { categories } = props;
 
   const { openCart, cartQuantity } = useShoppingCart();
-  const { openSideBar, handleSearch } = useAppContext();
+  const { openSideBar } = useAppContext();
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -79,7 +79,7 @@ const Navbar = (props: Props) => {
               />
             </Form> */}
             <SearchBox
-              handleSearch={handleSearch}
+              handleSearch={() => {}}
               getSuggestionRequest={getSuggestionProduct}
             />
           </Col>

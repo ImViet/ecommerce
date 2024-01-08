@@ -12,15 +12,12 @@ import { useAppContext } from "../context/AppContext";
 const Product = () => {
   const { id } = useParams();
 
-  const { searchValue } = useAppContext();
-
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
 
   useEffect(() => {
-    console.log(searchValue);
     if (id === undefined) {
       getProductPagination()
         .then((res: IResponseData<IPaging<IProduct>>) => {

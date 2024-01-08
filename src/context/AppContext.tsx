@@ -17,8 +17,6 @@ interface AppProviderProps {
 interface AppContext {
   closeSideBar: () => void;
   openSideBar: () => void;
-  handleSearch: (value: string) => void;
-  searchValue: string;
 }
 
 const AppContext = createContext({} as AppContext);
@@ -29,11 +27,9 @@ export function useAppContext() {
 
 export function AppProvider({ children }: AppProviderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [searchValue, setSearchValue] = useState<string>("");
   const [categories, setCategories] = useState<ICategory[]>([]);
   const openSideBar = () => setIsOpen(true);
   const closeSideBar = () => setIsOpen(false);
-  const handleSearch = (value: string) => setSearchValue(value);
   useEffect(() => {
     getAllCategory()
       .then((res: IResponseData<ICategory[]>) => {
@@ -42,9 +38,7 @@ export function AppProvider({ children }: AppProviderProps) {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <AppContext.Provider
-      value={{ openSideBar, closeSideBar, handleSearch, searchValue }}
-    >
+    <AppContext.Provider value={{ openSideBar, closeSideBar }}>
       {children}
       <SideBar isOpen={isOpen} categories={categories} />
     </AppContext.Provider>
