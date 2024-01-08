@@ -8,11 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
+  handleSearch: Function;
   getSuggestionRequest: Function;
 }
 
 const SearchBox = (props: Props) => {
-  const { getSuggestionRequest } = props;
+  const { handleSearch, getSuggestionRequest } = props;
   const [show, setShow] = useState<boolean>(false);
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState<IProduct[]>([]);
@@ -64,7 +65,7 @@ const SearchBox = (props: Props) => {
           onChange={handleChangeSearch}
           value={search}
         />
-        <span className="icon-search">
+        <span className="icon-search" onClick={() => handleSearch(search)}>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </span>
         {suggestions?.length > 0 ? (

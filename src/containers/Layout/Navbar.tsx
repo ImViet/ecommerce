@@ -14,11 +14,10 @@ import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { useState } from "react";
 import { ICategory } from "../../interfaces/ICategory";
-import "../../styles/navbar.scss";
 import { useAppContext } from "../../context/AppContext";
-import { link } from "fs";
 import SearchBox from "../../components/SearchBox";
 import { getSuggestionProduct } from "../../api/product";
+import "../../styles/navbar.scss";
 interface Props {
   categories: ICategory[];
 }
@@ -37,6 +36,7 @@ const Navbar = (props: Props) => {
   const handleMouseLeave = () => {
     setShowDropdown(false);
   };
+
   return (
     <NavbarBs sticky="top" expand="lg" className="bg-white shadow-sm mb-3 p-3">
       <Container className="nav-container">
@@ -78,22 +78,24 @@ const Navbar = (props: Props) => {
                 aria-label="Search"
               />
             </Form> */}
-            <SearchBox getSuggestionRequest={getSuggestionProduct} />
+            <SearchBox
+              handleSearch={() => {}}
+              getSuggestionRequest={getSuggestionProduct}
+            />
           </Col>
           <Col className="nav-right" lg={4} xl={3}>
-            {cartQuantity > 0 && (
-              <Button
-                onClick={openCart}
-                // variant="outline-success"
-                className="nav-btn__cart"
-              >
-                <FontAwesomeIcon
-                  className="nav-btn__icon"
-                  icon={faBagShopping}
-                />
+            <Button
+              onClick={openCart}
+              // variant="outline-success"
+              className="nav-btn__cart me-2"
+            >
+              <FontAwesomeIcon className="nav-btn__icon" icon={faBagShopping} />
+              {cartQuantity > 0 ? (
                 <div className="nav-cart__count">{cartQuantity}</div>
-              </Button>
-            )}
+              ) : (
+                ""
+              )}
+            </Button>
             <Nav>
               <Nav.Link to={`/products`} as={NavLink}>
                 Shop
