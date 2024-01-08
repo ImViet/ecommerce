@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { IProduct } from "../interfaces/IProduct";
-import ProductCard from "../components/ProductCard";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { getProductByCategory } from "../api/categories";
 import { useParams } from "react-router-dom";
 import { IResponseData } from "../interfaces/IResponseData";
 import { IPaging } from "../interfaces/IPaging";
 import ProductList from "../containers/Product/ProductList";
+import { getProductPagination } from "../api/product";
+import { useAppContext } from "../context/AppContext";
 
 const Product = () => {
   const { id } = useParams();
+
+  const { searchValue } = useAppContext();
 
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,19 +20,33 @@ const Product = () => {
   const [totalPage, setTotalPage] = useState<number>(1);
 
   useEffect(() => {
-    getProductByCategory(Number(id))
-      .then((res: IResponseData<IPaging<IProduct>>) => {
-        setProducts(res.data.items);
-        setCurrentPage(res.data.currentPage);
-        setTotalPage(res.data.totalPages);
-      })
-      .catch((err) => console.log(err));
+    console.log(searchValue);
+    if (id === undefined) {
+      getProductPagination()
+        .then((res: IResponseData<IPaging<IProduct>>) => {
+          setProducts(res.data.items);
+          setCurrentPage(res.data.currentPage);
+          setTotalPage(res.data.totalPages);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      getProductByCategory(Number(id))
+        .then((res: IResponseData<IPaging<IProduct>>) => {
+          setProducts(res.data.items);
+          setCurrentPage(res.data.currentPage);
+          setTotalPage(res.data.totalPages);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [id]);
 
   const loadMore = async () => {
     setLoading(true);
     var nextPage = currentPage + 1;
-    var products = await getProductByCategory(Number(id), nextPage);
+    var products =
+      id === undefined
+        ? await getProductPagination(nextPage)
+        : await getProductByCategory(Number(id), nextPage);
     setProducts((currentProduct) => [
       ...currentProduct,
       ...products.data.items,
