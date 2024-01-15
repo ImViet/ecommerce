@@ -1,10 +1,10 @@
 import React from "react";
-import { IProduct } from "../../interfaces/IProduct";
+import { IProduct } from "../../../interfaces/IProduct";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../../components/ProductCard";
 
 interface Props {
-  products: IProduct[];
+  products: IProduct[] | undefined;
 }
 
 const ProductList = (props: Props) => {
