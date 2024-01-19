@@ -7,8 +7,13 @@ export const getAllProduct = async (): Promise<IResponseData<IProduct[]>> => {
     return await axiosClient.get(`/products`);
 }
 
-export const getProductPagination = async (pageIndex: number = 1): Promise<IResponseData<IPaging<IProduct>>> => {
-    return await axiosClient.get(`/products/paging?pageIndex=${pageIndex}`);
+export const getProductPagination = async (cateId?: number, pageIndex: number = 1): Promise<IResponseData<IPaging<IProduct>>> => {
+    let url = `/products/paging?pageIndex=${pageIndex}`;
+    if(cateId !== undefined)
+    {
+        url = url + `&categoryId=${cateId}`;
+    }
+    return await axiosClient.get(url);
 };
 
 export const getProductById = async (id: number): Promise<IResponseData<IProduct>> => {

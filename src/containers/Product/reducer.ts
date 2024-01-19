@@ -26,15 +26,24 @@ export const ProductReducerSlice = createSlice({
                     currentPage: payload.currentPage,
                     totalItems: payload.totalItems,
                     totalPages: payload.totalPages,
-                    items: [...items, ...payload.items]                    
+                    // items: [...items, ...payload.items]    
+                    items: payload.items              
                 } 
             }
         },
-        getProductByCate: (state, action: PayloadAction) => {
-            
+        clearProduct: (state): ProductState =>{
+            return {
+                ...state,
+                products: null
+            }
         }
     }
 })
 
-export const { getProduct, setProduct } = ProductReducerSlice.actions
+export const 
+{ 
+    getProduct, 
+    setProduct, 
+    clearProduct
+} = ProductReducerSlice.actions
 export default ProductReducerSlice.reducer

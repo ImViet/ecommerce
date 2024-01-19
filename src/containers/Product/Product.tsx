@@ -1,29 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ProductList from "./List/ProductList";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/stores";
-import { getProduct } from "./reducer";
+import { clearProduct, getProduct } from "./reducer";
 import { IQueryProductModel } from "../../interfaces/Product/IQueryProductModel";
 const Product = () => {
   const { id } = useParams();
   const defaultQuery: IQueryProductModel = {
     pageIndex: 1,
   };
-  // const [products, setProducts] = useState<IProduct[]>([]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
   const [totalPage, setTotalPage] = useState<number | undefined>(1);
-
   const { products } = useSelector((state: RootState) => state.productReducer);
+  const [query, setQuery] = useState(
+    products
+      ? { ...defaultQuery, pageIndex: products.currentPage }
+      : defaultQuery
+  );
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (id !== undefined && id !== query.categoryId?.toString()) {
+      setQuery((query) => ({
+        ...query,
+        categoryId: Number(id),
+        pageIndex: 1,
+      }));
+    } else {
+      setQuery((query) => ({ ...query, categoryId: undefined, pageIndex: 1 }));
+    }
+  }, [id]);
 
   useEffect(() => {
-    if (!products) {
-      dispatch(getProduct(defaultQuery));
-    }
-  }, []);
+    // dispatch(clearProduct());
+    dispatch(getProduct(query));
+  }, [query]);
 
   useEffect(() => {
     setCurrentPage(products?.currentPage);
@@ -32,8 +47,11 @@ const Product = () => {
 
   const loadMore = async () => {
     setLoading(true);
-    defaultQuery.pageIndex = currentPage !== undefined ? currentPage + 1 : 0;
-    dispatch(getProduct(defaultQuery));
+    setQuery((query) => ({
+      ...query,
+      pageIndex:
+        products?.currentPage !== undefined ? products?.currentPage + 1 : 1,
+    }));
     setLoading(false);
   };
 

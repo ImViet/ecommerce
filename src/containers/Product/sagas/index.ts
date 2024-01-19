@@ -4,4 +4,5 @@ import { getProduct } from "../reducer";
 
 export default function* ProductSagas(){
     yield takeLatest(getProduct.type, handleGetProductPagination)
+    // yield takeLatest(getProductByCate.type, handleGetProductByCategory)
 }

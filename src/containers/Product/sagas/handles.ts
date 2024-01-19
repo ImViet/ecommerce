@@ -11,9 +11,19 @@ import { IQueryProductModel } from "../../../interfaces/Product/IQueryProductMod
 export function* handleGetProductPagination(action: PayloadAction<IQueryProductModel>){
     const queryModel = action.payload;
     try {
-        const response: IResponseData<IPaging<IProduct>> = yield call(getProductPagination, queryModel.pageIndex);
+        const response: IResponseData<IPaging<IProduct>> = yield call(getProductPagination, queryModel.categoryId, queryModel.pageIndex);
         yield put(setProduct(response.data))
     } catch (error) {
         
     }
 }
+
+// export function* handleGetProductByCategory(action: PayloadAction<IQueryProductModel>){
+//     const queryModel = action.payload;
+//     try {
+//         const response: IResponseData<IPaging<IProduct>> = yield call(getProductPagination, queryModel.categoryId, queryModel.pageIndex); 
+//         yield put(setProductByCate(response.data));
+//     } catch (error) {
+        
+//     }
+// }
