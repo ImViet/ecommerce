@@ -8,6 +8,6 @@ export const getAllCategory = async (): Promise<IResponseData<ICategory[]>> => {
     return await axiosClient.get(`/categories`);
 }
 
-export const getProductByCategory = (id: Number, pageIndex: number = 1): Promise<IResponseData<IPaging<IProduct>>> => {
-    return axiosClient.get(`/categories/${id}/products?pageIndex=${pageIndex}`)
+export const getProductByCategory = async (id: Number, pageIndex: number = 1): Promise<IResponseData<IPaging<IProduct>>> => {
+    return await axiosClient.get(`/categories/${id}/products?pageIndex=${pageIndex}`)
 }
